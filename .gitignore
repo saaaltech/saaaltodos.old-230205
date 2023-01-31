@@ -20,15 +20,29 @@ migrate_working_dir/
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
-.packages
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
 
 # Node dependencies related
 node_modules/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
 
 # Conventional directory for build outputs.
 build/
