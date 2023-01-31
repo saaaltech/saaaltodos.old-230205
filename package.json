@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "saaaltodos",
+  "description": "Commit hooks for saaaltodos project.",
+  "version": "0.0.0",
+  "scripts": {
+    "prettier": "prettier --write . --ignore-unknown"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.3"
+  }
+}
