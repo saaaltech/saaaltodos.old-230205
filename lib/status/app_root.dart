@@ -4,6 +4,21 @@ import 'package:flutter/material.dart';
 /// Global key as the default key of [AppRoot] instance.
 final appRoot = GlobalKey();
 
+// Shortcuts of setThemeMode.
+void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
+void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
+void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
+
+/// Set theme mode of an [AppRoot] widget according to its [GlobalKey].
+/// If the [key] is not given, it will use default [appRoot] key.
+///
+/// You may also consider its shortcuts: [toDark], [toLight] and [toSystem].
+///
+void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
+  final state = (key ?? appRoot).currentState as AppRootState?;
+  state?.themeMode = ThemeMode.system;
+}
+
 /// Handle theme and locale change at the root of an app.
 ///
 /// You can call the getters of its [State] from its [GlobalKey]

@@ -22,30 +22,21 @@ class ThemeModeValidate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appRoot = this.appRoot.currentState as AppRootState?;
+    final controller = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextButton(onPressed: () => toDark(), child: const Text('to dark')),
+        TextButton(onPressed: () => toLight(), child: const Text('to light')),
+        TextButton(onPressed: () => toSystem(), child: const Text('to system')),
+      ],
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('brightness: ${Theme.of(context).brightness}'),
         Text('platform: ${MediaQuery.of(context).platformBrightness}'),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextButton(
-              onPressed: () => appRoot?.themeMode = ThemeMode.dark,
-              child: const Text('to dark'),
-            ),
-            TextButton(
-              onPressed: () => appRoot?.themeMode = ThemeMode.light,
-              child: const Text('to light'),
-            ),
-            TextButton(
-              onPressed: () => appRoot?.themeMode = ThemeMode.system,
-              child: const Text('to system'),
-            ),
-          ],
-        ),
+        controller,
       ],
     );
   }
