@@ -5,7 +5,8 @@
   "version": "0.0.0",
   "scripts": {
     "postinstall": "husky install",
-    "prettier": "prettier --write . --ignore-unknown"
+    "prettier": "prettier --write . --ignore-unknown",
+    "locale": "dart run lib/locales/script.dart && flutter gen-l10n"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",

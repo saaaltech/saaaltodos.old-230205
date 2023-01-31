@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["theLanguageName", "theLocaleAreaName"],
+  "properties": {
+    "theLanguageName": {
+      "type": "string",
+      "$comment": "Name of the language, for example: English"
+    },
+    "theLocaleAreaName": {
+      "type": "string",
+      "$comment": "Locale area of the language, for example: United States"
+    }
+  }
+}
