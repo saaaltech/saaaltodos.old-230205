@@ -14,7 +14,13 @@ class App extends StatelessWidget {
     return AppRoot(
       home: Scaffold(
         body: Center(
-          child: ThemeModeValidate(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ThemeModeValidate(),
+              LocaleValidate(),
+            ],
+          ),
         ),
       ),
     );
