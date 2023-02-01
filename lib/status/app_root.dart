@@ -19,7 +19,7 @@ void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
 ///
 void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
   final state = (key ?? appRoot).currentState as AppRootState?;
-  state?.themeMode = ThemeMode.system;
+  state?.themeMode = mode;
 }
 
 /// Set locale of an [AppRoot] widget according to its [GlobalKey].
