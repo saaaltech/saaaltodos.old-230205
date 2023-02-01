@@ -5,6 +5,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:saaaltodos/build_options.dart' as build_options;
 
 /// Global key as the default key of [AppRoot] instance.
+///
+/// There's usually only one [AppRoot] widget at the root of the whole app,
+/// as it is recommended.
+///
 final appRoot = GlobalKey();
 
 // Shortcuts of setThemeMode.
