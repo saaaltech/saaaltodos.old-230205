@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 final terminalContainer = GlobalKey();
 
 /// Tab shortcuts to show or hide terminal pad.
+///
+/// It is designed for desktop and will not be compatible with phones.
+///
 class TerminalContainer extends StatefulWidget {
   TerminalContainer({
     GlobalKey? key,
