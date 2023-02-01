@@ -1,4 +1,5 @@
 import 'package:change_case/change_case.dart';
+import 'package:flutter/material.dart';
 import 'package:saaaltodos/status/app_root.dart';
 import 'package:saaaltodos/tools/persistence.dart';
 
@@ -14,6 +15,11 @@ final status = LocalStatus();
 /// Close the app and open again, those data will be recovered.
 ///
 class LocalStatus extends JsonPersistence {
+  // Handle app root of current status instance.
+  late GlobalKey appRoot = appRoot;
+  AppRootState? get appRootState => appRoot.currentState as AppRootState?;
+
+  // Key names (use kebab-case in json style).
   static final themeModeKey = 'theme mode'.toKebabCase();
 
   @override
