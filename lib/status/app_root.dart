@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 /// Global key as the default key of [AppRoot] instance.
 final appRoot = GlobalKey();
 
+/// Getter of an [AppRootState] based on the global variable [appRoot].
+///
+/// Attention that this getter will return the one of [appRoot] key.
+/// When [AppRoot] with this key not exist but other [AppRoot]s exist,
+/// it will still return `null`.
+///
+AppRootState? get appRootState => appRoot.currentState as AppRootState?;
+
 // Shortcuts of setThemeMode.
 void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
 void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
@@ -68,6 +76,11 @@ class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
   late ThemeData _darkTheme = widget.defaultDarkTheme;
   late ThemeData _lightTheme = widget.defaultLightTheme;
 
+  // Getter of current theme and locale status.
+  ThemeMode get themeMode => _themeMode;
+  ThemeData get darkTheme => _darkTheme;
+  ThemeData get lightTheme => _lightTheme;
+
   /// Whether the app root is current in dark mode.
   bool get dark => _themeMode == ThemeMode.system
       ? PlatformDispatcher.instance.platformBrightness == Brightness.dark
@@ -126,5 +139,24 @@ class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
       initialRoute: widget.initialRoute,
       onUnknownRoute: widget.onUnknownRoute,
     );
+  }
+}
+
+/// Convert from json value and apply the parsed value.
+///
+/// As they are parsed from json, the raw value can be dynamic.
+/// When the raw value is invalid, nothing will happen.
+///
+extension AppRootJsonApi on AppRootState {
+  /// Convert from theme mode name string into [ThemeMode] value
+  /// and if the value is valid, then apply the value.
+  ///
+  void themeModeFromName(dynamic raw) {
+    if (raw is! String) return;
+    for (final value in ThemeMode.values) {
+      if (value.name == raw) {
+        themeMode = value;
+      }
+    }
   }
 }
