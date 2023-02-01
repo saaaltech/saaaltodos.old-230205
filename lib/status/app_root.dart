@@ -8,8 +8,8 @@ import 'package:saaaltodos/build_options.dart' as build_options;
 final appRoot = GlobalKey();
 
 // Shortcuts of setThemeMode.
-void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
-void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
+void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.dark, key: key);
+void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.light, key: key);
 void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
 
 /// Set theme mode of an [AppRoot] widget according to its [GlobalKey].
@@ -19,7 +19,7 @@ void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
 ///
 void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
   final state = (key ?? appRoot).currentState as AppRootState?;
-  state?.themeMode = ThemeMode.system;
+  state?.themeMode = mode;
 }
 
 /// Set locale of an [AppRoot] widget according to its [GlobalKey].
