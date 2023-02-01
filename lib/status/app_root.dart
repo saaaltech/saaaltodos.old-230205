@@ -68,6 +68,11 @@ class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
   late ThemeData _darkTheme = widget.defaultDarkTheme;
   late ThemeData _lightTheme = widget.defaultLightTheme;
 
+  // Getter of current theme and locale status.
+  ThemeMode get themeMode => _themeMode;
+  ThemeData get darkTheme => _darkTheme;
+  ThemeData get lightTheme => _lightTheme;
+
   /// Whether the app root is current in dark mode.
   bool get dark => _themeMode == ThemeMode.system
       ? PlatformDispatcher.instance.platformBrightness == Brightness.dark
