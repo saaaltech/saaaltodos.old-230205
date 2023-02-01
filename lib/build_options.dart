@@ -9,3 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// or it will throw exceptions.
 ///
 const defaultLocale = Locale('en');
+
+/// If true, android will be treated as pad
+/// regardless of ensure initialized configurations.
+///
+const forceAndroidPad = false;
