@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saaaltodos/tools/environment.dart';
+import 'package:saaaltodos/tools/logger.dart';
 
 /// Global key as the default key of [TerminalContainer] instance.
 ///
@@ -32,6 +34,14 @@ class _TerminalContainerState extends State<TerminalContainer> {
   set show(bool flag) {
     if (_show != flag) {
       setState(() => _show = flag);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (platform.isPortrait) {
+      log.warn('use terminal container on portrait screen');
     }
   }
 
