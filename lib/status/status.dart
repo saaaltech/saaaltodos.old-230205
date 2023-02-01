@@ -21,16 +21,19 @@ class LocalStatus extends JsonPersistence {
 
   // Key names (use kebab-case in json style).
   static final themeModeKey = 'theme mode'.toKebabCase();
+  static final localeKey = 'locale'.toKebabCase();
 
   @override
   void fromMap(Map<String, dynamic> map) {
     appRootState?.themeModeFromName(map[themeModeKey]);
+    appRootState?.localeFromCode(map[localeKey]);
   }
 
   @override
   Map<String, dynamic> get map {
     return {
       themeModeKey: appRootState?.themeMode.name,
+      localeKey: appRootState?.locale.toLanguageTag().toKebabCase(),
     };
   }
 }
