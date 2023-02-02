@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saaaltodos/components/shortcut.dart';
 import 'package:saaaltodos/tools/environment.dart';
 import 'package:saaaltodos/tools/logger.dart';
 
@@ -179,18 +180,40 @@ extension TerminalContainerJsonApi on TerminalContainerState {
     final List<SingleActivator> showShortcuts = [];
     final List<SingleActivator> hideShortcuts = [];
 
-    if (show is List<String>) {}
+    if (show is List<String>) {
+      for (final raw in show) {
+        final shortcut = resolveSingleActivator(raw);
+        if (shortcut != null) showShortcuts.add(shortcut);
+      }
+    }
 
-    if (hide is List<String>) {}
+    if (hide is List<String>) {
+      for (final raw in hide) {
+        final shortcut = resolveSingleActivator(raw);
+        if (shortcut != null) showShortcuts.add(shortcut);
+      }
+    }
 
     addShortcuts(showShortcuts: showShortcuts, hideShortcuts: hideShortcuts);
   }
 
   List<String> get showShortcuts {
-    return [];
+    final List<String> generator = [];
+    for (final shortcut in _shortcuts.keys) {
+      if (_shortcuts[shortcut] == const TerminalIntent()) {
+        generator.add(shortcut.code);
+      }
+    }
+    return generator;
   }
 
   List<String> get hideShortcuts {
-    return [];
+    final List<String> generator = [];
+    for (final shortcut in _shortcuts.keys) {
+      if (_shortcuts[shortcut] == const TerminalIntent(hideOnly: true)) {
+        generator.add(shortcut.code);
+      }
+    }
+    return generator;
   }
 }
