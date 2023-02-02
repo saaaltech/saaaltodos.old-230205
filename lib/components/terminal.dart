@@ -174,7 +174,7 @@ class TerminalIntent extends Intent {
   final bool hideOnly;
 }
 
-extension TerminalControllerJsonApi on TerminalContainerState {
+extension TerminalContainerJsonApi on TerminalContainerState {
   void resolve(dynamic show, dynamic hide) {
     final List<ShortcutActivator> showShortcuts = [];
     final List<ShortcutActivator> hideShortcuts = [];
