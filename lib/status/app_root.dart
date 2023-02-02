@@ -9,7 +9,7 @@ import 'package:saaaltodos/build_options.dart' as build_options;
 /// There's usually only one [AppRoot] widget at the root of the whole app,
 /// as it is recommended.
 ///
-final appRoot = GlobalKey();
+final appRoot = GlobalKey(debugLabel: 'app root');
 
 // Shortcuts of setThemeMode.
 void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.dark, key: key);
