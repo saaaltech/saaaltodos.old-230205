@@ -25,8 +25,8 @@ class LocalStatus extends JsonPersistence {
 
   @override
   void fromMap(Map<String, dynamic> map) {
-    appRootState?.themeModeFromName(map[themeModeKey]);
-    appRootState?.localeFromCode(map[localeKey]);
+    appRootState?.resolveThemeMode(map[themeModeKey]);
+    appRootState?.resolveLocale(map[localeKey]);
   }
 
   @override

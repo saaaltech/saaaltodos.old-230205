@@ -5,7 +5,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:saaaltodos/build_options.dart' as build_options;
 
 /// Global key as the default key of [AppRoot] instance.
-final appRoot = GlobalKey();
+///
+/// There's usually only one [AppRoot] widget at the root of the whole app,
+/// as it is recommended.
+///
+final appRoot = GlobalKey(debugLabel: 'app root');
 
 // Shortcuts of setThemeMode.
 void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.dark, key: key);
@@ -177,7 +181,7 @@ extension AppRootJsonApi on AppRootState {
   /// Convert from theme mode name string into [ThemeMode] value
   /// and if the value is valid, then apply the value.
   ///
-  void themeModeFromName(dynamic raw) {
+  void resolveThemeMode(dynamic raw) {
     if (raw is! String) return;
     for (final value in ThemeMode.values) {
       if (value.name == raw) {
@@ -192,7 +196,7 @@ extension AppRootJsonApi on AppRootState {
   /// If there's no such supported locale or code is invalid,
   /// then nothing will happen.
   ///
-  void localeFromCode(dynamic raw) {
+  void resolveLocale(dynamic raw) {
     if (raw is! String) return;
 
     final parts = raw.toKebabCase().split('-');
