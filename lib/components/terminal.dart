@@ -10,6 +10,15 @@ import 'package:saaaltodos/tools/logger.dart';
 ///
 final terminalContainer = GlobalKey(debugLabel: 'terminal container');
 
+/// Get terminal container state for calling apis.
+///
+/// If the [key] is not specified,
+/// it will use the default key [terminalContainer].
+///
+TerminalContainerState? terminalContainerState({GlobalKey? key}) {
+  return (key ?? terminalContainer).currentState as TerminalContainerState?;
+}
+
 /// Tab shortcuts to show or hide terminal pad.
 ///
 /// It is designed for desktop and will not be compatible with phones.
@@ -163,4 +172,25 @@ class TerminalContainerState extends State<TerminalContainer> {
 class TerminalIntent extends Intent {
   const TerminalIntent({this.hideOnly = false});
   final bool hideOnly;
+}
+
+extension TerminalControllerJsonApi on TerminalContainerState {
+  void resolve(dynamic show, dynamic hide) {
+    final List<ShortcutActivator> showShortcuts = [];
+    final List<ShortcutActivator> hideShortcuts = [];
+
+    if (show is List<String>) {}
+
+    if (hide is List<String>) {}
+
+    addShortcuts(showShortcuts: showShortcuts, hideShortcuts: hideShortcuts);
+  }
+
+  List<String> get showShortcuts {
+    return [];
+  }
+
+  List<String> get hideShortcuts {
+    return [];
+  }
 }

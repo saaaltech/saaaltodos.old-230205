@@ -1,5 +1,6 @@
 import 'package:change_case/change_case.dart';
 import 'package:flutter/material.dart';
+import 'package:saaaltodos/components/terminal.dart';
 import 'package:saaaltodos/status/app_root.dart';
 import 'package:saaaltodos/tools/persistence.dart';
 
@@ -22,11 +23,17 @@ class LocalStatus extends JsonPersistence {
   // Key names (use kebab-case in json style).
   static final themeModeKey = 'theme mode'.toKebabCase();
   static final localeKey = 'locale'.toKebabCase();
+  static final showTerminalShortcutsKey = 'terminal show'.toKebabCase();
+  static final hideTerminalShortcutsKey = 'terminal hide'.toKebabCase();
 
   @override
   void fromMap(Map<String, dynamic> map) {
     appRootState?.resolveThemeMode(map[themeModeKey]);
     appRootState?.resolveLocale(map[localeKey]);
+    terminalContainerState()?.resolve(
+      map[showTerminalShortcutsKey],
+      map[hideTerminalShortcutsKey],
+    );
   }
 
   @override
@@ -34,6 +41,8 @@ class LocalStatus extends JsonPersistence {
     return {
       themeModeKey: appRootState?.themeMode.name,
       localeKey: appRootState?.locale.toLanguageTag().toKebabCase(),
+      showTerminalShortcutsKey: terminalContainerState()?.showShortcuts,
+      hideTerminalShortcutsKey: terminalContainerState()?.hideShortcuts,
     };
   }
 }
