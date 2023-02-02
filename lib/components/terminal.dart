@@ -41,8 +41,8 @@ class TerminalContainer extends StatefulWidget {
     this.mainArea = const Center(child: Text('main area')),
   }) : super(key: key ?? terminalContainer);
 
-  final List<ShortcutActivator> defaultShowShortcuts;
-  final List<ShortcutActivator> defaultHideShortcuts;
+  final List<SingleActivator> defaultShowShortcuts;
+  final List<SingleActivator> defaultHideShortcuts;
 
   final Widget terminalPad;
   final Widget mainArea;
@@ -61,16 +61,16 @@ class TerminalContainerState extends State<TerminalContainer> {
     }
   }
 
-  late Map<ShortcutActivator, Intent> _shortcuts = _resolveShortcuts(
+  late Map<SingleActivator, Intent> _shortcuts = _resolveShortcuts(
     showShortcuts: widget.defaultShowShortcuts,
     hideShortcuts: widget.defaultHideShortcuts,
   );
 
-  Map<ShortcutActivator, Intent> _resolveShortcuts({
-    List<ShortcutActivator> showShortcuts = const [],
-    List<ShortcutActivator> hideShortcuts = const [],
+  Map<SingleActivator, Intent> _resolveShortcuts({
+    List<SingleActivator> showShortcuts = const [],
+    List<SingleActivator> hideShortcuts = const [],
   }) {
-    final Map<ShortcutActivator, Intent> generator = {};
+    final Map<SingleActivator, Intent> generator = {};
 
     for (final shortcut in showShortcuts) {
       generator[shortcut] = generator[shortcut] ?? const TerminalIntent();
@@ -84,13 +84,13 @@ class TerminalContainerState extends State<TerminalContainer> {
     return generator;
   }
 
-  void addShowShortcut(ShortcutActivator shortcut) {
+  void addShowShortcut(SingleActivator shortcut) {
     setState(() {
       _shortcuts[shortcut] = _shortcuts[shortcut] ?? const TerminalIntent();
     });
   }
 
-  void addHideShortcut(ShortcutActivator shortcut) {
+  void addHideShortcut(SingleActivator shortcut) {
     setState(() {
       _shortcuts[shortcut] =
           _shortcuts[shortcut] ?? const TerminalIntent(hideOnly: true);
@@ -98,8 +98,8 @@ class TerminalContainerState extends State<TerminalContainer> {
   }
 
   void addShortcuts({
-    List<ShortcutActivator> showShortcuts = const <ShortcutActivator>[],
-    List<ShortcutActivator> hideShortcuts = const <ShortcutActivator>[],
+    List<SingleActivator> showShortcuts = const <SingleActivator>[],
+    List<SingleActivator> hideShortcuts = const <SingleActivator>[],
   }) {
     setState(() {
       _shortcuts = _resolveShortcuts(
@@ -109,13 +109,13 @@ class TerminalContainerState extends State<TerminalContainer> {
     });
   }
 
-  void removeShortcut(ShortcutActivator shortcut) {
+  void removeShortcut(SingleActivator shortcut) {
     setState(() {
       _shortcuts.remove(shortcut);
     });
   }
 
-  void removeShortcuts(List<ShortcutActivator> shortcuts) {
+  void removeShortcuts(List<SingleActivator> shortcuts) {
     setState(() {
       for (final shortcut in shortcuts) {
         _shortcuts.remove(shortcut);
@@ -176,8 +176,8 @@ class TerminalIntent extends Intent {
 
 extension TerminalContainerJsonApi on TerminalContainerState {
   void resolve(dynamic show, dynamic hide) {
-    final List<ShortcutActivator> showShortcuts = [];
-    final List<ShortcutActivator> hideShortcuts = [];
+    final List<SingleActivator> showShortcuts = [];
+    final List<SingleActivator> hideShortcuts = [];
 
     if (show is List<String>) {}
 
