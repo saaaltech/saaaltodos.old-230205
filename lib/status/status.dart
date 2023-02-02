@@ -16,9 +16,9 @@ final status = LocalStatus();
 /// Close the app and open again, those data will be recovered.
 ///
 class LocalStatus extends JsonPersistence {
-  // Handle app root of current status instance.
+  // Handle keys current status instance.
   late GlobalKey appRoot = appRoot;
-  AppRootState? get appRootState => appRoot.currentState as AppRootState?;
+  late GlobalKey terminalContainer = terminalContainer;
 
   // Key names (use kebab-case in json style).
   static final themeModeKey = 'theme mode'.toKebabCase();
@@ -28,9 +28,12 @@ class LocalStatus extends JsonPersistence {
 
   @override
   void fromMap(Map<String, dynamic> map) {
-    appRootState?.resolveThemeMode(map[themeModeKey]);
-    appRootState?.resolveLocale(map[localeKey]);
-    terminalContainerState()?.resolve(
+    final appRoot = appRootState(key: this.appRoot);
+    final terminalCon = terminalContainerState(key: terminalContainer);
+
+    appRoot?.resolveThemeMode(map[themeModeKey]);
+    appRoot?.resolveLocale(map[localeKey]);
+    terminalCon?.resolve(
       map[showTerminalShortcutsKey],
       map[hideTerminalShortcutsKey],
     );
@@ -38,11 +41,14 @@ class LocalStatus extends JsonPersistence {
 
   @override
   Map<String, dynamic> get map {
+    final appRoot = appRootState(key: this.appRoot);
+    final terminalCon = terminalContainerState(key: terminalContainer);
+
     return {
-      themeModeKey: appRootState?.themeMode.name,
-      localeKey: appRootState?.locale.toLanguageTag().toKebabCase(),
-      showTerminalShortcutsKey: terminalContainerState()?.showShortcuts,
-      hideTerminalShortcutsKey: terminalContainerState()?.hideShortcuts,
+      themeModeKey: appRoot?.themeMode.name,
+      localeKey: appRoot?.locale.toLanguageTag().toKebabCase(),
+      showTerminalShortcutsKey: terminalCon?.showShortcuts,
+      hideTerminalShortcutsKey: terminalCon?.hideShortcuts,
     };
   }
 }

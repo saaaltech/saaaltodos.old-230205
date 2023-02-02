@@ -11,6 +11,15 @@ import 'package:saaaltodos/build_options.dart' as build_options;
 ///
 final appRoot = GlobalKey(debugLabel: 'app root');
 
+/// Get app root state for calling apis.
+///
+/// If the [key] is not specified,
+/// it will use the default key [appRoot].
+///
+AppRootState? appRootState({GlobalKey? key}) {
+  return (key ?? appRoot).currentState as AppRootState?;
+}
+
 // Shortcuts of setThemeMode.
 void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.dark, key: key);
 void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.light, key: key);
@@ -22,8 +31,7 @@ void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
 /// You may also consider its shortcuts: [toDark], [toLight] and [toSystem].
 ///
 void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
-  final state = (key ?? appRoot).currentState as AppRootState?;
-  state?.themeMode = mode;
+  appRootState(key: key)?.themeMode = mode;
 }
 
 /// Set locale of an [AppRoot] widget according to its [GlobalKey].
@@ -34,11 +42,10 @@ void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
 /// it will throw an exception.
 ///
 void setLocale(Locale locale, {GlobalKey? key}) {
-  final state = (key ?? appRoot).currentState as AppRootState?;
   if (!AppLocalizations.supportedLocales.contains(locale)) {
     throw Exception('set unsupported locale');
   }
-  state?.locale = locale;
+  appRootState(key: key)?.locale = locale;
 }
 
 /// Handle theme and locale change at the root of an app.
