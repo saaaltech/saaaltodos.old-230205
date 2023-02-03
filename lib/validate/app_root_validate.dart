@@ -23,19 +23,21 @@ class ThemeModeValidate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appRoot = appRootState(key: this.appRoot);
+
     final controller = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         TextButton(
-          onPressed: () => toDark(key: appRoot),
+          onPressed: () => appRoot?.toDark(),
           child: const Text('to dark'),
         ),
         TextButton(
-          onPressed: () => toLight(key: appRoot),
+          onPressed: () => appRoot?.toLight(),
           child: const Text('to light'),
         ),
         TextButton(
-          onPressed: () => toSystem(key: appRoot),
+          onPressed: () => appRoot?.toSystem(),
           child: const Text('to system'),
         ),
       ],
@@ -61,6 +63,8 @@ class LocaleValidate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appRoot = appRootState(key: this.appRoot);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -69,11 +73,11 @@ class LocaleValidate extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextButton(
-              onPressed: () => setLocale(const Locale('en'), key: appRoot),
+              onPressed: () => appRoot?.locale = const Locale('en'),
               child: const Text('to en'),
             ),
             TextButton(
-              onPressed: () => setLocale(const Locale('zh'), key: appRoot),
+              onPressed: () => appRoot?.locale = const Locale('zh'),
               child: const Text('to zh'),
             ),
           ],
