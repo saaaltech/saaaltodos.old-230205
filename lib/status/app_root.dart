@@ -11,41 +11,13 @@ import 'package:saaaltodos/build_options.dart' as build_options;
 ///
 final appRoot = GlobalKey(debugLabel: 'app root');
 
-/// Get app root state for calling apis.
+/// Get the [AppRootState] instance for calling apis.
 ///
 /// If the [key] is not specified,
 /// it will use the default key [appRoot].
 ///
 AppRootState? appRootState({GlobalKey? key}) {
   return (key ?? appRoot).currentState as AppRootState?;
-}
-
-// Shortcuts of setThemeMode.
-void toDark({GlobalKey? key}) => setThemeMode(ThemeMode.dark, key: key);
-void toLight({GlobalKey? key}) => setThemeMode(ThemeMode.light, key: key);
-void toSystem({GlobalKey? key}) => setThemeMode(ThemeMode.system, key: key);
-
-/// Set theme mode of an [AppRoot] widget according to its [GlobalKey].
-/// If the [key] is not given, it will use default [appRoot] key.
-///
-/// You may also consider its shortcuts: [toDark], [toLight] and [toSystem].
-///
-void setThemeMode(ThemeMode mode, {GlobalKey? key}) {
-  appRootState(key: key)?.themeMode = mode;
-}
-
-/// Set locale of an [AppRoot] widget according to its [GlobalKey].
-/// If the [key] is not given, it will use default [appRoot] key.
-///
-/// If you are setting an unsupported locale
-/// (not in [AppLocalizations.supportedLocales]),
-/// it will throw an exception.
-///
-void setLocale(Locale locale, {GlobalKey? key}) {
-  if (!AppLocalizations.supportedLocales.contains(locale)) {
-    throw Exception('set unsupported locale');
-  }
-  appRootState(key: key)?.locale = locale;
 }
 
 /// Handle theme and locale change at the root of an app.
@@ -133,8 +105,17 @@ class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
   }
 
   /// Update locale.
+  ///
+  /// It will check whether the locale is supported by current app.
+  /// If you are setting an unsupported locale
+  /// (not in [AppLocalizations.supportedLocales]),
+  /// it will throw an exception.
+  ///
   set locale(Locale locale) {
     if (_locale != locale) {
+      if (!AppLocalizations.supportedLocales.contains(locale)) {
+        throw Exception('set unsupported locale');
+      }
       setState(() => _locale = locale);
     }
   }
@@ -177,6 +158,12 @@ class AppRootState extends State<AppRoot> with WidgetsBindingObserver {
       onUnknownRoute: widget.onUnknownRoute,
     );
   }
+}
+
+extension AppRootHelper on AppRootState {
+  void toDark() => themeMode = ThemeMode.dark;
+  void toLight() => themeMode = ThemeMode.light;
+  void toSystem() => themeMode = ThemeMode.system;
 }
 
 /// Convert from json value and apply the parsed value.
